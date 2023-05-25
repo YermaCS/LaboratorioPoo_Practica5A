@@ -33,7 +33,6 @@ Teclado teclado = new Teclado();
             }
             else
                 System.out.print("[ ]");
-        
         System.out.println("");
     }
     
@@ -45,6 +44,7 @@ Teclado teclado = new Teclado();
                 System.out.print("[ ]");
             System.out.print("\n");
         }
+        System.out.println("");
         
     }
 }

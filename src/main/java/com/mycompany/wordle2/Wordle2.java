@@ -19,5 +19,7 @@ private Tablero tb = new Tablero();
             if(wr.tb.compararValidez())
                 break;
         }
+        System.out.println("Juego Terminado");
+        System.out.println("Palabra secreta: "+wr.tb.getPalabraPuesta());
     }    
 }

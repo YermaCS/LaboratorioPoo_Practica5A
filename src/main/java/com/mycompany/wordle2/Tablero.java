@@ -11,17 +11,22 @@ private PalabraPuesta palabraP = new PalabraPuesta();
 private Canva canva = new Canva();
 
 private ArrayList<PalabrasUsadas> palabrasU = new ArrayList();
-private int i=-1;
+private int i;
 
 private ArrayList<Character> letrasUsadas = new ArrayList();
     
     public Tablero(){
-        
+        i=-1;
     }    
     //Acciones con palabras escritas
     public String pedirPalabra(){
-        System.out.println("Escribe la palabra");
-        valorEntrada = entrada.nextLine();
+        
+        do
+        {
+            System.out.println("Escribe una palabra palabra de 5 letras");
+            valorEntrada = entrada.nextLine();
+            
+        }while(validarPalabraPuesta(valorEntrada));
                 
         definirLetrasUsadas(valorEntrada);
         return valorEntrada;
@@ -29,23 +34,44 @@ private ArrayList<Character> letrasUsadas = new ArrayList();
     
     public void agregarPalabraEscrita(String palabra){
         palabrasU.add(new PalabrasUsadas(palabra));
-        i++;
     }
     
     public int cantPalabrasPuestas(){
         return palabrasU.size();
     }
     
+    public boolean validarPalabraPuesta(String valorEntrada){
+        boolean valido;
+        
+        if(palabraP.getListaDePalabras().contains(valorEntrada))
+        {
+            i++;
+            valido=false;
+        }
+        else
+        {
+            System.out.println("Has escrito una palabra inválida o inexistente... intenta de nuevo");
+            valido = true;
+            
+        }
+        
+        return valido;
+    }
+    
     //Acciones con palabra Puesta
     public boolean compararValidez(){
         boolean gana=false;
-        
+
         if(palabrasU.get(i).getPalabra().equals(palabraP.getPalabraPuesta()))
         {
             System.out.println("Ganaste");
             gana=true;
         }
         return gana;
+    }
+    
+    public String getPalabraPuesta(){
+        return palabraP.getPalabraPuesta();
     }
     
     public void definirLetrasUsadas(String entrada){
@@ -59,6 +85,7 @@ private ArrayList<Character> letrasUsadas = new ArrayList();
     public void mostrarPalabrasUsadas(){
         int i,tam=palabrasU.size();
         
+        mostrarInstrucciones();
         if(!palabrasU.isEmpty())
         {
             for(i=0;i<5;i++)
@@ -66,10 +93,15 @@ private ArrayList<Character> letrasUsadas = new ArrayList();
                 canva.mostrarPalabrasUsadas(true,palabrasU.get(i).getPalabra(),palabraP.getPalabraPuesta(),palabraP.getArrayListPalabraPuesta());
             else
                 canva.mostrarPalabrasUsadas(false,palabrasU.get(0).getPalabra(),palabraP.getPalabraPuesta(),palabraP.getArrayListPalabraPuesta());
+            
+            System.out.println("");
         }
         else
             canva.mostrarVacio();
-          
+    }
+    
+    public void mostrarInstrucciones(){
+        System.out.println("[] = No se encuentra en la palabra\n{} = Se encuentra en la palabra pero no en esa posicion\n() = Se encuentra en la palabra en esa posición\n");
     }
     
     public void mostrarTeclado(){
